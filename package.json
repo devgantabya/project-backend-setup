@@ -2,11 +2,11 @@
   "name": "backend-project-setup",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsx watch src/server.ts",
-    "build": "tsc"
+    "build": "tsup src/server.ts --format esm --out-dir dist",
+    "start": "node dist/server.js"
   },
   "type": "module",
   "keywords": [],
@@ -19,13 +19,14 @@
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "http-status": "^2.1.0",
-    "tsx": "^4.21.0",
-    "typescript": "^6.0.3",
     "zod": "^4.4.3"
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.10",
     "@types/cors": "^2.8.19",
-    "@types/express": "^5.0.6"
+    "@types/express": "^5.0.6",
+    "tsup": "^8.5.1",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.3"
   }
 }
