@@ -1,10 +1,11 @@
-import express, { type Express } from "express";
+import express, { Application } from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import notFound from "./app/middleware/notFound";
 import router from "./app/routes/routes";
+import globalErrorHandler from "./app/middleware/globalError";
 
-const app: Express = express();
+const app: Application = express();
 
 app.use(
   cors({
@@ -28,5 +29,6 @@ app.get("/", (_req, res) => {
 
 
 app.use(notFound);
+app.use(globalErrorHandler);
 
 export default app;
