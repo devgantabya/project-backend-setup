@@ -1,3 +1,7 @@
+## ER Diagram URL
+
+link: https://drive.google.com/file/d/1lUPLAEt5uR7TZrWJHvJLJE5nxiEm24l3/view?usp=sharing
+
 ## Database Questions and Answers
 
 ### 1. What is the difference between Primary Key and Foreign Key?
