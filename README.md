@@ -1,3 +1,91 @@
+## SQL Related Some Questions and Answers
+
+### 1. What is the difference between DELETE, TRUNCATE, and DROP?
+
+| Command  | Purpose                  | Removes Data | Removes Table Structure | Can Use WHERE | Rollback Possible |
+| -------- | ------------------------ | ------------ | ----------------------- | ------------- | ----------------- |
+| DELETE   | Deletes specific rows    | Yes          | No                      | Yes           | Yes               |
+| TRUNCATE | Removes all rows quickly | Yes          | No                      | No            | Depends on DBMS   |
+| DROP     | Deletes entire table     | Yes          | Yes                     | No            | No                |
+
+### 2. What is a PRIMARY KEY?
+
+A `PRIMARY KEY` is a column or combination of columns that uniquely identifies each row in a table.
+
+#### Rules
+
+- Cannot contain `NULL`
+- Must contain unique values
+- Only one primary key per table
+
+### 3. What is the difference between PRIMARY KEY and UNIQUE KEY?
+
+| PRIMARY KEY                 | UNIQUE KEY            |
+| --------------------------- | --------------------- |
+| Uniquely identifies rows    | Ensures unique values |
+| Cannot contain NULL         | Can contain NULL      |
+| Only one per table          | Multiple allowed      |
+| Automatically creates index | Also creates index    |
+
+### 4. What is a FOREIGN KEY?
+
+A `FOREIGN KEY` is a column used to create a relationship between two tables.
+
+It references the primary key of another table.
+
+### 5. What is JOIN in SQL?
+
+`JOIN` is used to combine rows from two or more tables based on a related column.
+
+### 6. What is Normalization?
+
+Normalization is the process of organizing data in a database to reduce redundancy and improve data integrity.
+
+### 7. What is Indexing?
+
+An index is used to improve the speed of data retrieval operations in a database.
+
+#### Why do we use Index?
+
+- Faster searching
+- Faster sorting
+- Improves query performance
+
+### 8. What is the difference between WHERE and HAVING?
+
+| WHERE                                   | HAVING                        |
+| --------------------------------------- | ----------------------------- |
+| Filters rows before grouping            | Filters groups after grouping |
+| Cannot use aggregate functions directly | Can use aggregate functions   |
+| Used before GROUP BY                    | Used after GROUP BY           |
+
+### 9. What is a Transaction in SQL?
+
+A transaction is a group of SQL statements executed as a single unit.
+
+#### Example
+
+```sql
+BEGIN;
+
+UPDATE employees
+SET salary = salary + 1000
+WHERE id = 1;
+
+COMMIT;
+```
+
+### 10. Write a query to find the second highest salary.
+
+```sql
+SELECT MAX(salary) AS second_highest_salary
+FROM employees
+WHERE salary < (
+    SELECT MAX(salary)
+    FROM employees
+);
+```
+
 ## ER Diagram URL
 
 link: https://drive.google.com/file/d/1lUPLAEt5uR7TZrWJHvJLJE5nxiEm24l3/view?usp=sharing
