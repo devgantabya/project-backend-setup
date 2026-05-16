@@ -1,3 +1,247 @@
+## Prisma ORM Related some Questions and Answers
+
+### What is Prisma ORM?
+
+Prisma ORM is a modern Object Relational Mapper (ORM) for Node.js and TypeScript applications. It allows developers to interact with databases using JavaScript/TypeScript instead of writing raw SQL queries.
+
+Prisma supports databases like:
+
+- PostgreSQL
+- MySQL
+- SQLite
+- MongoDB
+- SQL Server
+
+### Why Prisma is Used
+
+- Type-safe database queries
+- Auto-completion and better developer experience
+- Easy database management
+- Simple relation handling
+- Migration support
+- Faster backend development
+
+### Difference Between `findUnique()` and `findFirst()`
+
+#### `findUnique()`
+
+Used to find a single record using a unique field.
+
+Example:
+
+```ts
+await prisma.user.findUnique({
+  where: {
+    email: "test@gmail.com",
+  },
+});
+```
+
+#### Features
+
+- Works only with unique fields
+- Returns one record or `null`
+- Faster query performance
+
+#### `findFirst()`
+
+Used to find the first matching record based on conditions.
+
+Example:
+
+```ts
+await prisma.user.findFirst({
+  where: {
+    role: "ADMIN",
+  },
+});
+```
+
+#### Features
+
+- Works with non-unique fields
+- Returns the first matched record
+- Supports filtering and ordering
+
+### Main Difference
+
+| Feature                  | findUnique()         | findFirst()           |
+| ------------------------ | -------------------- | --------------------- |
+| Unique field required    | Yes                  | No                    |
+| Non-unique field support | No                   | Yes                   |
+| Returns                  | Single unique record | First matching record |
+| Performance              | Faster               | Slightly slower       |
+
+### What is Prisma Migration?
+
+Prisma Migration is a feature that manages database schema changes in a structured and version-controlled way.
+
+Whenever the Prisma schema changes, migrations update the database automatically.
+
+Example model:
+
+```prisma
+model User {
+  id    Int    @id @default(autoincrement())
+  name  String
+  email String @unique
+}
+```
+
+### Why `prisma migrate dev` is Used
+
+Command:
+
+```bash
+npx prisma migrate dev
+```
+
+#### Purpose
+
+- Creates migration files
+- Updates the database schema
+- Regenerates Prisma Client
+
+Example:
+
+```bash
+npx prisma migrate dev --name add-user-model
+```
+
+### Difference Between `select` and `include`
+
+#### `select`
+
+Used to fetch specific fields only.
+
+Example:
+
+```ts
+const user = await prisma.user.findUnique({
+  where: { id: 1 },
+  select: {
+    name: true,
+    email: true,
+  },
+});
+```
+
+#### Output
+
+```json
+{
+  "name": "John",
+  "email": "john@gmail.com"
+}
+```
+
+#### `include`
+
+Used to fetch related data or relations.
+
+Example:
+
+```ts
+const user = await prisma.user.findUnique({
+  where: { id: 1 },
+  include: {
+    posts: true,
+  },
+});
+```
+
+#### Output
+
+```json
+{
+  "id": 1,
+  "name": "John",
+  "email": "john@gmail.com",
+  "posts": [
+    {
+      "id": 1,
+      "title": "First Post"
+    }
+  ]
+}
+```
+
+### Main Difference
+
+| Feature               | select | include |
+| --------------------- | ------ | ------- |
+| Fetch specific fields | Yes    | No      |
+| Fetch relations       | No     | Yes     |
+| Reduces response size | Yes    | No      |
+
+---
+
+### Purpose of `schema.prisma`
+
+The `schema.prisma` file is the main configuration file of Prisma.
+
+It defines:
+
+- Database connection
+- Models and tables
+- Prisma Client configuration
+
+### Main Sections of `schema.prisma`
+
+#### 1. Generator Section
+
+Defines Prisma Client generation.
+
+```prisma
+generator client {
+  provider = "prisma-client-js"
+}
+```
+
+#### 2. Datasource Section
+
+Defines database connection settings.
+
+```prisma
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+```
+
+#### 3. Model Section
+
+Defines database tables and relationships.
+
+```prisma
+model User {
+  id    Int    @id @default(autoincrement())
+  name  String
+  email String @unique
+}
+```
+
+### Example Full `schema.prisma`
+
+```prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id    Int    @id @default(autoincrement())
+  name  String
+  email String @unique
+}
+```
+
+---
+
 ## SQL Related Some Questions and Answers
 
 ### 1. What is the difference between DELETE, TRUNCATE, and DROP?
