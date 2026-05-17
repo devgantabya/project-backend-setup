@@ -6,6 +6,7 @@ dotenv.config();
 const envSchema = z.object({
   PORT: z.coerce.number().default(5000),
   NODE_ENV: z.enum(["development", "production"]).default("development"),
+  DATABASE_URL: z.string(),
 });
 
 const parsedEnv = envSchema.safeParse(process.env);
@@ -23,4 +24,5 @@ const envData = parsedEnv.data;
 export const env = {
   port: envData.PORT,
   node_env: envData.NODE_ENV,
+  database_url: envData.DATABASE_URL,
 };

@@ -10,6 +10,9 @@
     "sourceMap": true,
 
     "strict": true,
+    "esModuleInterop": true,
+    "ignoreDeprecations": "6.0",
+    
     "skipLibCheck": true,
 
     "isolatedModules": true,
@@ -18,5 +21,7 @@
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
 
-  }
+  },
+  "include": ["src"],
+  "exclude": ["prisma", "node_modules", "dist", "prisma.config.ts"]
 }
