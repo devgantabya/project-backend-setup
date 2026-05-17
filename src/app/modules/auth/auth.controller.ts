@@ -13,7 +13,6 @@ const login = catchAsync(async (req: Request, res: Response) => {
 
 const register = catchAsync(async (req: Request, res: Response) => {
   const result = await AuthService.register(req.body);
-
   ApiResponse.success(res, result, "Registration successful");
 });
 
