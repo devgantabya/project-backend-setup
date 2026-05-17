@@ -1,11 +1,13 @@
 model User {
-  id         String    @id @default(uuid())
-  name       String
-  email      String    @unique
-  password   String
-  age        Int?
-  createdAt  DateTime  @default(now())
-  updateAt   DateTime  @updateAt
+  id          String    @id @default(uuid())
+  name        String
+  email       String    @unique
+  password    String
+  age         Int?
+  isVerified  Boolean   @default(false)
+  verifyToken String?
+  createdAt   DateTime  @default(now())
+  updateAt    DateTime  @updateAt
 }
 
 // model Post {

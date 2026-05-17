@@ -1,8 +1,8 @@
 import type { Request, Response } from "express";
 
 import { AuthService } from "./auth.service";
-import { ApiResponse } from "../../utils/ApiResponse";
-import catchAsync from "../../utils/catchAsync";
+import { ApiResponse } from "../../../utils/ApiResponse";
+import catchAsync from "../../../utils/catchAsync";
 
 
 const login = catchAsync(async (req: Request, res: Response) => {
@@ -16,21 +16,18 @@ const register = catchAsync(async (req: Request, res: Response) => {
   ApiResponse.success(res, result, "Registration successful");
 });
 
-const changePassword = catchAsync(async (req: Request, res: Response) => {
-  const result = await AuthService.changePassword(req.body);
-
-  ApiResponse.success(res, result, "Password changed successfully");
+const verifyEmail = catchAsync(async (req: Request, res: Response) => {
+  const { token, email } = req.query;
+  if (typeof token !== "string" || typeof email !== "string") {
+    return ApiResponse.error(res, "Invalid token or email", 400);
+  }
+  const result = await AuthService.verifyEmail(token, email);
+  ApiResponse.success(res, result, "Email verified successfully");
 });
 
-const forgotPassword = catchAsync(async (req: Request, res: Response) => {
-  const result = await AuthService.forgotPassword(req.body);
-
-  ApiResponse.success(res, result, "Password reset email sent");
-});
 
 export const AuthController = {
   login,
   register,
-  changePassword,
-  forgotPassword,
+  verifyEmail
 };
