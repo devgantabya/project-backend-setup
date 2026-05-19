@@ -1,6 +1,6 @@
 import app from "./app";
 import { env } from "./app/config/env";
-import { connectMongoDB } from "./lib/mongoose";
+import connectMongoDB from "./lib/mongoose";
 
 let server: ReturnType<typeof app.listen> | null = null;
 

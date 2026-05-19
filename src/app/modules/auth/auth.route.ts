@@ -5,8 +5,16 @@ import { userLoginValidationSchema, userRegisterValidationSchema } from "./auth.
 
 const router: Router = Router();
 
-router.post("/login", validateRequest(userLoginValidationSchema), AuthController.login);
-router.post("/register", validateRequest(userRegisterValidationSchema), AuthController.register);
-router.get("/verify-email", AuthController.verifyEmail);
+// using prisma
+// router.post("/login", validateRequest(userLoginValidationSchema), AuthController.login);
+// router.post("/register", validateRequest(userRegisterValidationSchema), AuthController.register);
+// router.get("/verify-email", AuthController.verifyEmail);
+
+
+// using mongoose
+router.post("/register", AuthController.register);
+router.post("/login", AuthController.login);
+router.get("/users", AuthController.users);
+router.get("/users/:id", AuthController.user);
 
 export const AuthRoutes = router;

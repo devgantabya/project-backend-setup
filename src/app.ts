@@ -18,6 +18,7 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// base URL
 app.use("/api/v1", router);
 
 app.get("/", (_req, res) => {

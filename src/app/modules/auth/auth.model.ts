@@ -1,13 +1,11 @@
-import mongoose, { model } from "mongoose";
+import mongoose from "mongoose";
 
 interface IUser {
   name: string;
   email: string;
   password: string;
   age?: number;
-  isAdmin: boolean;
-  createdAt: Date;
-  updatedAt: Date;
+  isAdmin?: boolean;
 }
 
 const userSchema = new mongoose.Schema<IUser>(
@@ -16,7 +14,6 @@ const userSchema = new mongoose.Schema<IUser>(
         {
             type: String,
             required: true,
-            trim: true,
         },
 
         email:
@@ -42,7 +39,7 @@ const userSchema = new mongoose.Schema<IUser>(
         isAdmin:
         {
             type: Boolean,
-            default: false,
+            default: true,
         },
     },
     {
@@ -50,4 +47,4 @@ const userSchema = new mongoose.Schema<IUser>(
     }
 );
 
-export const User = model<IUser>("User", userSchema);
+export const User = mongoose.models.User || mongoose.model<IUser>("User", userSchema);
