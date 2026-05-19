@@ -9,6 +9,7 @@ const envSchema = z.object({
   DATABASE_URL: z.string(),
   EMAIL_USER: z.string(),
   EMAIL_PASS: z.string(),
+  MONGO_URI: z.string(),
 });
 
 const parsedEnv = envSchema.safeParse(process.env);
@@ -29,4 +30,5 @@ export const env = {
   database_url: envData.DATABASE_URL,
   email_user: envData.EMAIL_USER,
   email_pass: envData.EMAIL_PASS,
+  mongo_uri: envData.MONGO_URI,
 };

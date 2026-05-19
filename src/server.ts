@@ -1,5 +1,6 @@
 import app from "./app";
 import { env } from "./app/config/env";
+import { connectMongoDB } from "./lib/mongoose";
 
 let server: ReturnType<typeof app.listen> | null = null;
 
@@ -7,6 +8,7 @@ const bootstrap = async (): Promise<void> => {
   server = app.listen(env.port, () => {
     console.log(`Server running on port ${env.port}`);
   });
+  await connectMongoDB();
 };
 
 const shutdown = (signal: string, error?: unknown) => {
