@@ -16,5 +16,7 @@ router.post("/register", AuthController.register);
 router.post("/login", AuthController.login);
 router.get("/users", AuthController.users);
 router.get("/users/:id", AuthController.user);
+router.patch("/users/:id", AuthController.updateUser);
+router.delete("/users/:id", AuthController.deleteUser);
 
 export const AuthRoutes = router;

@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import notFound from "./app/middleware/notFound";
 import router from "./app/routes/routes";
 import globalErrorHandler from "./app/middleware/globalError";
+import { ProductRoutes } from "./app/modules/product/product.route";
 
 const app: Application = express();
 
@@ -20,6 +21,8 @@ app.use(express.json());
 
 // base URL
 app.use("/api/v1", router);
+
+app.use("/product", ProductRoutes);
 
 app.get("/", (_req, res) => {
   res.json({

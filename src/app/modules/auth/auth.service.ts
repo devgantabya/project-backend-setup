@@ -5,6 +5,7 @@
 // import { sendEmail } from "../../../utils/mailer";
 // import { _email } from "zod/v4/core";
 import { User } from "./auth.model";
+// import { _email } from 'zod/v4/core';
 
 
 // Using Prisma
@@ -118,16 +119,53 @@ const users = async () => {
 }
 
 const user = async (id: string) => {
-  const singleUser = await User.findById(id);
+  const singleUser = await User.findOne({ _id: id } as any);
   if (!singleUser) {
     throw new Error("User not found")
   }
   return singleUser;
 }
 
+const updateUser = async (id: string, payload: any) => {
+  const { name, email, password, age, isAdmin } = payload;
+
+  const updatedUser = await User.findByIdAndUpdate(
+    id,
+    {
+      name,
+      email,
+      password,
+      age,
+      isAdmin,
+    },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+
+  if (!updatedUser) {
+    throw new Error("User not found");
+  }
+
+  return updatedUser;
+};
+
+const deleteUser = async (id: string) => {
+  const deletedUser = await User.findByIdAndDelete(id);
+
+  if (!deletedUser) {
+    throw new Error("User not found");
+  }
+
+  return deletedUser;
+};
+
 export const AuthService = {
   login,
   register,
   users,
   user,
+  updateUser,
+  deleteUser,
 }

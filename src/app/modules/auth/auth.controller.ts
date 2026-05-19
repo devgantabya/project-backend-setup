@@ -51,6 +51,32 @@ const user = catchAsync(async (req: Request, res: Response) => {
   ApiResponse.success(res, result, "User retrieved successfully");
 })
 
+const updateUser = catchAsync(async (req: Request, res: Response) => {
+  const id = req.params.id;
+  if (typeof id !== "string") {
+    return ApiResponse.error(res, "Invalid user id", 400);
+  }
+
+  const result = await AuthService.updateUser(
+    id,
+    req.body
+  );
+
+  ApiResponse.success(res, result, "User updated successfully");
+});
+
+const deleteUser = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  if (!id || typeof id !== "string") {
+    return ApiResponse.error(res, "Invalid user id", 400);
+  }
+
+  const result = await AuthService.deleteUser(id);
+
+  ApiResponse.success(res, result, "User deleted successfully");
+});
+
 
 
 
@@ -59,4 +85,6 @@ export const AuthController = {
   register,
   users,
   user,
+  updateUser,
+  deleteUser,
 };
