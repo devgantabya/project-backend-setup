@@ -25,7 +25,7 @@ app.use("/api/v1", router);
 
 app.use("/product", ProductRoutes);
 
-app.use("/order", OrderRoutes);
+app.use("/orders", OrderRoutes);
 
 app.get("/", (_req, res) => {
   res.json({
